@@ -8,7 +8,8 @@ Created on Mon Apr 09 13:06:37 2018
 '''
 This is the LLC-name generater
 '''
-
+#PROBLEM: not currently ensuring that there is no repeat word in LLC
+#need to incorporate -ing form of verbs, or a set of rules for how to construct -ing words correct
 
 import pandas as pd
 import random
@@ -33,10 +34,78 @@ for line in c_file:
 c_file.close()
 c_dict = dict(c_dict)
 
-word_patterns
+##invert dictionary function
+def invert_dict(dictionary):
+    wordclass_dict = {}
+    for k, v in dictionary.iteritems():
+        wordclass_dict.setdefault(v, []).append(k)
+    return wordclass_dict
 
+wordclass_ldict = invert_dict(l_dict)
+wordclass_cdict = invert_dict(c_dict)
+
+def adj_adj_noun():
+    l_adj = wordclass_ldict["j"]
+    c_noun = wordclass_cdict["n"]
+    word1 = l_adj[random.randint(0, len(l_adj)-1)]
+    word2 = l_adj[random.randint(0, len(l_adj)-1)]
+    word3 = c_noun[random.randint(0, len(c_noun)-1)]
+    return word1+" "+word2+" "+word3
+
+def adj_verb_noun():
+    l_adj = wordclass_ldict["j"]
+    l_verb = wordclass_ldict["v"]
+    c_noun = wordclass_cdict["n"]
+    word1 = l_adj[random.randint(0, len(l_adj)-1)]
+    word2 = l_verb[random.randint(0, len(l_verb)-1)]
+    word2 += "ing"
+    word3 = c_noun[random.randint(0, len(c_noun)-1)]
+    return word1+" "+word2+" "+word3
+    
+def adj_noun_noun():
+    l_adj = wordclass_ldict["j"]
+    l_noun = wordclass_ldict["n"]
+    c_noun = wordclass_cdict["n"]
+    word1 = l_adj[random.randint(0, len(l_adj)-1)]
+    word2 = l_noun[random.randint(0, len(l_noun)-1)]
+    word3 = c_noun[random.randint(0, len(c_noun)-1)]
+    return word1+" "+word2+" "+word3
+
+def make_name():
+    pattern = random.randint(0, 2)
+    if pattern == 0:
+        print "1"
+        LLC = adj_adj_noun()
+    elif pattern == 1:
+        print "2"
+        LLC = adj_verb_noun()
+    elif pattern == 2:
+        print "3"
+        LLC = adj_noun_noun()
+    else:
+        print "SOMETHING WENT TERRIBLY WRONG"
+        LLC = ""
+    return LLC
+        
+        
+print make_name()
+
+
+    
+    
+
+
+print type(wordclass_ldict.get("n"))    
+print type(wordclass_ldict["n"])
 
 '''
+if pattern == 0:
+    LLC = aan()
+elif pattern == 1:
+    LLC = abv()
+elif pattern == 2:
+    LLC = ann()
+
 ###FROM HERE HAVE NOT WORKED
 #gotta make a list of keys, in order to pick a random number from there
 

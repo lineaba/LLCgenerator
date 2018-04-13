@@ -52,12 +52,12 @@ c_noun_verb_adj = []
 
 #go through l list, and pull all l-words which are nouns, verbs and adjectives and append them (with their PoS tag to the new l-list)
 for element in l_words:
-    if element[1] == "v" or element[1] == "n" or element[1] == "a":
+    if element[1] == "v" or element[1] == "n" or element[1] == "j":
         l_noun_verb_adj.append(element)
 
 #go through c list, and pull all c-words which are nouns, verbs and adjectives and append them (with their PoS tag to the new c-list)
 for element in c_words:
-    if element[1] == "v" or element[1] == "n" or element[1] == "a":
+    if element[1] == "v" or element[1] == "n" or element[1] == "j":
         c_noun_verb_adj.append(element)
 
 #write the l-words and their PoS tags to the l_file
