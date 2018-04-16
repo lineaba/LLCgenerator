@@ -75,3 +75,6 @@ for element in c_noun_verb_adj:
     c_file.write(print_this)
     c_file.write("\n")
 c_file.close()
+
+
+

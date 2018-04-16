@@ -34,6 +34,19 @@ for line in c_file:
 c_file.close()
 c_dict = dict(c_dict)
 
+def prepare_dict(file_name):
+    open_file = open(file_name, "r")
+    dictionary = []
+    for line in open_file:
+        if line[-1] == "\n":
+            line = line[:-1]
+        element = line.split(";")
+        dictionary.append((element[0], element[1]))
+    open_file.close()
+    dictionary = dict(dictionary)
+    return dictionary
+    
+
 ##invert dictionary function
 def invert_dict(dictionary):
     wordclass_dict = {}
@@ -52,13 +65,14 @@ def adj_adj_noun():
     word3 = c_noun[random.randint(0, len(c_noun)-1)]
     return word1+" "+word2+" "+word3
 
-def adj_verb_noun():
+def adj_verbing_noun():
     l_adj = wordclass_ldict["j"]
     l_verb = wordclass_ldict["v"]
     c_noun = wordclass_cdict["n"]
+    l_progs = prepare_dict("l_progs.txt")
     word1 = l_adj[random.randint(0, len(l_adj)-1)]
     word2 = l_verb[random.randint(0, len(l_verb)-1)]
-    word2 += "ing"
+    word2 = l_progs[word2]
     word3 = c_noun[random.randint(0, len(c_noun)-1)]
     return word1+" "+word2+" "+word3
     
@@ -78,7 +92,7 @@ def make_name():
         LLC = adj_adj_noun()
     elif pattern == 1:
         print "2"
-        LLC = adj_verb_noun()
+        LLC = adj_verbing_noun()
     elif pattern == 2:
         print "3"
         LLC = adj_noun_noun()
@@ -89,15 +103,7 @@ def make_name():
         
         
 print make_name()
-
-
     
-    
-
-
-print type(wordclass_ldict.get("n"))    
-print type(wordclass_ldict["n"])
-
 '''
 if pattern == 0:
     LLC = aan()
